@@ -42,30 +42,30 @@ Parasite UI is a web interface to access and manage the [Parasite API](https://g
 - Visual results through beautiful graphs and charts.
 - Many more...
 
-### Services
+## Services
 
 | Service Name | Status | Link |
 |--------------|--------|------|
 | Image Classifier | Inactive | http://parasite.todack.com |
 | Language Translation | Inactive | http://parasite.todack.com |
 
-### Feedback
+## Feedback
 
 - For bugs, complaints and issues, follow the [Issue Template]() and report [here](https://github.com/todack/parasite-ui/issues).
 - For questions and feature requests, create a new discussion [here]().
 - If you find an issue, pull-request or discussion useful, upvote it.
 - For any other concerns reach us at parasite@todack.com.
 
-### Contribution
+## Contribution
 
 If, for some strange reason, you wish to contribute to this project then follow the guidelines below to locally setup this project.
 
-#### Prerequisites
+### Prerequisites
 - `node-14` and `npm`. If you don't have it installed on your system, follow the guide [here](https://nodejs.org/en/download/).
 - Fundamentals of web programming using `HTML`, `CSS` and `Javascript`.
 - Basics of `VueJS`, `Vuex`, `Vue-Router`, `Vuetify`. All of these have great documentation to get started.
  
-#### Local Setup
+### Local Setup
 - Fork the repo to your preferred account. Look for a `fork` button on the top right corner of the github repo page.
 - Clone the forked repo.
 ```sh
@@ -81,7 +81,7 @@ npm install
 npm run serve
 ```
 
-#### Workflow
+### Workflow
 
 The follwing workflow is recommended to contribute to this project. Follow each step carefully.
 
@@ -105,5 +105,5 @@ git push origin <topic-name>
 
 For a more descriptive guide follow the [link](https://git-scm.com/book/en/v2/GitHub-Contributing-to-a-Project).
 
-### References
+## References
 - [TODO] Add research papers and relevant examples.
