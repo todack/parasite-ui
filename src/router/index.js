@@ -5,6 +5,8 @@ import Landing from "../views/Landing.vue";
 import Services from "../views/Services.vue";
 import Api from "../views/Api.vue";
 import Docs from "../views/Docs.vue";
+import Request from "../views/Request.vue";
+import Result from "../views/Result.vue";
 
 Vue.use(VueRouter);
 
@@ -28,6 +30,16 @@ const routes = [
     path: "/docs",
     name: "docs",
     component: Docs
+  },
+  {
+    path: "/request",
+    name: "request",
+    component: Request
+  },
+  {
+    path: "/result",
+    name: "result",
+    component: Result
   }
 ];
 
