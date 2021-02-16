@@ -1,19 +1,21 @@
 language: node_js
 node_js:
-  - "node"
+  - "14"
 
 cache: npm
 
-script: 
-  - npm run build
-  - echo "parasite.todack.com" > dist/CNAME
+script: npm run build
+
+branches:
+  only:
+    master
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local_dir: dist
-  keep_history: true
+  local_dir: dist/
   target_branch: release
+  fqdn: parasite.todack.com
   on:
     branch: master
