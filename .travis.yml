@@ -8,7 +8,7 @@ script: npm run build
 
 branches:
   only:
-    master
+    main
 
 deploy:
   provider: pages
@@ -18,4 +18,4 @@ deploy:
   target_branch: release
   fqdn: parasite.todack.com
   on:
-    branch: master
+    branch: main
