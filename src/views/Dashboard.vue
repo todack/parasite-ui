@@ -2,12 +2,12 @@
   <v-container>
     <v-row>
       <v-col cols="3">
-        <v-navigation-drawer permanent floating>
+        <v-navigation-drawer floating permanent>
           <v-list>
             <v-list-item
               v-for="item in items"
-              :key="item.title"
               :to="item.path"
+              :key="item.title"
             >
               <v-list-item-content> {{ item.title }} </v-list-item-content>
             </v-list-item>
@@ -27,16 +27,20 @@ export default {
     return {
       items: [
         {
-          title: "Introduction",
-          path: "introduction"
+          title: "Account Settings",
+          path: "account-settings"
         },
         {
-          title: "Programmatic Access",
-          path: "programmatic-access"
+          title: "API Access",
+          path: "api-access"
         },
         {
-          title: "Web Interface",
-          path: "web-interface"
+          title: "Billing & Credits",
+          path: "billing"
+        },
+        {
+          title: "Support",
+          path: "support"
         }
       ]
     };

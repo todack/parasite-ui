@@ -1,20 +1,20 @@
 <template>
-  <div>
-    <v-container fluid>
-      <v-row>
-        <v-col class="blue" cols="12">
-          <Header></Header>
-        </v-col>
-        <v-col class="green" cols="12">
-          <Working></Working>
-        </v-col>
-        <v-col class="pink" cols="12">
-          <Stats></Stats>
-        </v-col>
-      </v-row>
-    </v-container>
-    <Footer></Footer>
-  </div>
+  <v-container fluid>
+    <v-row>
+      <v-col cols="12" class="fullscreen py-0">
+        <Header></Header>
+      </v-col>
+      <v-col cols="12" class="black">
+        <Working></Working>
+      </v-col>
+      <v-col cols="12">
+        <Stats></Stats>
+      </v-col>
+      <v-col cols="12" class="black">
+        <Footer></Footer>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -32,3 +32,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.fullscreen {
+  height: calc(100vh - 64px);
+}
+</style>
