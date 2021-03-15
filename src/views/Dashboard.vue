@@ -9,7 +9,9 @@
               :to="item.path"
               :key="item.title"
             >
-              <v-list-item-content> {{ item.title }} </v-list-item-content>
+              <v-list-item-content class="font-weight-bold">
+                {{ item.title }}
+              </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-navigation-drawer>
