@@ -1,21 +1,24 @@
 <template>
-  <v-container>
-    <DataInput></DataInput>
-    <Guide></Guide>
-    <About></About>
+  <v-container fluid>
+    <v-row>
+      <v-col cols="12">
+        <DataInput></DataInput>
+      </v-col>
+      <v-col class="black" cols="12">
+        <Guide></Guide>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import DataInput from "@/components/request/DataInput.vue";
 import Guide from "@/components/request/Guide.vue";
-import About from "@/components/request/About.vue";
 
 export default {
   components: {
     DataInput,
-    Guide,
-    About
+    Guide
   }
 };
 </script>
