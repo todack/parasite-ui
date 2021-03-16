@@ -1,5 +1,9 @@
 <template>
-  <div class="mt-10 mx-10 px-12">
-    <v-text-field placeholder="Search for a service..." solo></v-text-field>
-  </div>
+  <v-container class="my-12 px-12">
+    <v-text-field
+      hide-details
+      placeholder="Search for a service"
+      solo
+    ></v-text-field>
+  </v-container>
 </template>

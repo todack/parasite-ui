@@ -1,13 +1,13 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row>
-      <v-col cols="12">
+      <v-col class="black" cols="12">
         <SearchBar></SearchBar>
       </v-col>
       <v-col cols="12">
         <ServiceList></ServiceList>
       </v-col>
-      <v-col cols="12">
+      <v-col class="black" cols="12">
         <ServiceRequest></ServiceRequest>
       </v-col>
     </v-row>
