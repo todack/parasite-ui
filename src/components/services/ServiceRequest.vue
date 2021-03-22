@@ -35,7 +35,7 @@
         </v-row>
       </v-col>
       <v-col cols="6">
-        <v-img class="white--text center"> [image here] </v-img>
+        <v-img eager src="@/assets/didntFind.svg"></v-img>
       </v-col>
     </v-row>
   </v-container>

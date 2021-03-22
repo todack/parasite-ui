@@ -11,15 +11,15 @@
             Inference
           </v-col>
           <v-col cols="12" class="d-flex mt-5">
-            <v-btn class="mr-5" width="230" dark large>
+            <v-btn class="mr-5" width="200" dark large>
               Sign in with Google
             </v-btn>
-            <v-btn width="230" dark large> Sign in with GitHub </v-btn>
+            <v-btn width="200" dark large> Sign in with GitHub </v-btn>
           </v-col>
         </v-row>
       </v-col>
       <v-col cols="6">
-        <v-img class="text-center"> image here </v-img>
+        <v-img eager src="@/assets/landingHeader.svg"></v-img>
       </v-col>
     </v-row>
   </v-container> </template

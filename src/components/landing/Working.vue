@@ -2,7 +2,7 @@
   <v-container class="my-12">
     <v-row class="my-8">
       <v-col cols="12" class="my-5">
-        <v-row justify="center" align="center">
+        <v-row justify="space-around" align="center">
           <v-col cols="4">
             <span class="display-3 white--text font-weight-black">
               Unified Interface. </span
@@ -13,14 +13,14 @@
             </h2>
           </v-col>
           <v-col cols="6">
-            <v-img class="text-center white--text"> img here </v-img>
+            <v-img eager src="@/assets/unifiedInterface.svg"></v-img>
           </v-col>
         </v-row>
       </v-col>
       <v-col cols="12" class="my-10">
-        <v-row justify="center" align="center">
+        <v-row justify="space-around" align="center">
           <v-col cols="6">
-            <v-img class="text-center white--text"> img here </v-img>
+            <v-img eager src="@/assets/multiSampled.svg"></v-img>
           </v-col>
           <v-col cols="4">
             <span class="display-3 white--text font-weight-black">
@@ -34,7 +34,7 @@
         </v-row>
       </v-col>
       <v-col cols="12" class="my-10">
-        <v-row justify="center" align="center">
+        <v-row justify="space-around" align="center">
           <v-col cols="4">
             <span class="display-3 font-weight-black white--text">
               Distributed. </span
@@ -45,14 +45,14 @@
             </h2>
           </v-col>
           <v-col cols="6">
-            <v-img class="text-center white--text"> img here </v-img>
+            <v-img eager src="@/assets/distributed.svg"></v-img>
           </v-col>
         </v-row>
       </v-col>
       <v-col cols="12" class="my-10">
-        <v-row justify="center" align="center">
+        <v-row justify="space-around" align="center">
           <v-col cols="6">
-            <v-img class="text-center white--text"> img here </v-img>
+            <v-img eager src="@/assets/support.svg"></v-img>
           </v-col>
           <v-col cols="4">
             <span class="display-3 white--text font-weight-black">
