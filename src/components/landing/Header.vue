@@ -14,19 +14,40 @@
             <v-slide-y-transition hide-on-leave leave-absolute>
               <p v-if="isAuthenticated" class="title mt-9">
                 Welcome!
-                <span class="font-weight-bold headline">{{ email }}</span
-                >.
+                <span class="font-weight-bold headline">{{ email }}</span>
               </p>
               <v-text-field
-                v-else
+                v-else-if="inputNum === 0"
                 class="title"
                 @keydown.enter="changeInput"
-                v-model="input"
+                v-model="email"
                 append-icon="mdi-arrow-right"
                 outlined
                 color="grey darken-3"
                 full-width
-                :placeholder="inputPH"
+                placeholder="Email Please!"
+              ></v-text-field>
+              <v-text-field
+                v-else-if="inputNum === 1"
+                class="title"
+                @keydown.enter="changeInput"
+                v-model="password"
+                append-icon="mdi-arrow-right"
+                outlined
+                color="grey darken-3"
+                full-width
+                placeholder="And password too :)"
+              ></v-text-field>
+              <v-text-field
+                v-else
+                class="title"
+                @keydown.enter="changeInput"
+                v-model="secretCode"
+                append-icon="mdi-arrow-right"
+                outlined
+                color="grey darken-3"
+                full-width
+                placeholder="We sent a secret code :D"
               ></v-text-field>
             </v-slide-y-transition>
           </v-col>
@@ -43,24 +64,22 @@
 export default {
   data() {
     return {
-      input: "",
-      inputPH: "Email Please!",
-      isAuthenticated: false,
-      email: ""
+      inputNum: 0,
+      email: "",
+      password: "",
+      secretCode: "",
+      isAuthenticated: false
     };
   },
   methods: {
-    changeInput(data) {
-      console.log(data);
-      if (this.inputPH === "Email Please!") {
-        this.email = this.input;
-        this.input = "";
-        this.inputPH = "And password too :)";
-      } else {
-        this.attemptAuthentication({ email: this.email, password: this.input });
-        this.input = "";
-        this.inputPH = "We sent a secret code :D";
-      }
+    changeInput() {
+      this.inputNum++;
+
+      if (this.inputNum === 2)
+        this.attemptAuthentication({
+          email: this.email,
+          password: this.password
+        });
     },
     attemptAuthentication(userData) {
       console.log(userData);
