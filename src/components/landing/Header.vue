@@ -17,9 +17,9 @@
                 <span class="font-weight-bold headline">{{ email }}</span>
               </p>
               <v-text-field
-                v-else-if="inputNum === 0"
+                v-else-if="isAskEmail"
                 class="title"
-                @keydown.enter="changeInput"
+                @keydown.enter="isAskEmail = !isAskEmail"
                 v-model="email"
                 append-icon="mdi-arrow-right"
                 outlined
@@ -28,26 +28,15 @@
                 placeholder="Email Please!"
               ></v-text-field>
               <v-text-field
-                v-else-if="inputNum === 1"
+                v-else-if="!isAskEmail"
                 class="title"
-                @keydown.enter="changeInput"
+                @keydown.enter="authHandler"
                 v-model="password"
                 append-icon="mdi-arrow-right"
                 outlined
                 color="grey darken-3"
                 full-width
                 placeholder="And password too :)"
-              ></v-text-field>
-              <v-text-field
-                v-else
-                class="title"
-                @keydown.enter="changeInput"
-                v-model="secretCode"
-                append-icon="mdi-arrow-right"
-                outlined
-                color="grey darken-3"
-                full-width
-                placeholder="We sent a secret code :D"
               ></v-text-field>
             </v-slide-y-transition>
           </v-col>
@@ -61,29 +50,32 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      inputNum: 0,
       email: "",
       password: "",
-      secretCode: "",
-      isAuthenticated: false
+      isAskEmail: true
     };
   },
+  computed: {
+    ...mapGetters(["isAuthenticated"])
+  },
   methods: {
-    changeInput() {
-      this.inputNum++;
+    ...mapActions(["attemptAuthentication"]),
+    async authHandler() {
+      const res = await this.attemptAuthentication({
+        email: this.email,
+        password: this.password
+      });
+      if (res) return;
 
-      if (this.inputNum === 2)
-        this.attemptAuthentication({
-          email: this.email,
-          password: this.password
-        });
-    },
-    attemptAuthentication(userData) {
-      console.log(userData);
-      this.isAuthenticated = true;
+      // If isAuthentication doesn't change that means login failed.
+      // And the dialog system will show a message.
+      this.isAskEmail = true;
+      this.email = "";
+      this.password = "";
     }
   }
 };

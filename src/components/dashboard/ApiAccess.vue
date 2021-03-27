@@ -8,7 +8,8 @@
         <v-text-field
           solo
           readonly
-          placeholder="API Access Code"
+          placeholder="API Access Token"
+          :value="userData.accessToken"
         ></v-text-field>
       </v-col>
       <v-col cols="3">
@@ -17,3 +18,13 @@
     </v-row>
   </v-container>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(["userData"])
+  }
+};
+</script>

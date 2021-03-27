@@ -6,8 +6,18 @@
       <v-btn text to="/docs"> Docs </v-btn>
     </div>
     <v-spacer></v-spacer>
-    <div>
+    <div v-if="isAuthenticated">
       <v-btn text to="/dashboard"> Dashboard </v-btn>
     </div>
   </v-app-bar>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(["isAuthenticated"])
+  }
+};
+</script>
