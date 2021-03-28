@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   data() {
@@ -69,11 +69,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userData"]),
-    amount() {
-      let price = 0.1; // This may be fetched per user.
-      return this.apiCalls * price;
-    }
+    ...mapState(["userData"])
   }
 };
 </script>

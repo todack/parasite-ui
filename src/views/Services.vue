@@ -19,11 +19,40 @@ import SearchBar from "@/components/services/SearchBar";
 import ServiceList from "@/components/services/ServiceList";
 import ServiceRequest from "@/components/services/ServiceRequest";
 
+import { mapActions, mapGetters } from "vuex";
+
 export default {
+  async created() {
+    await this.fetchData();
+  },
   components: {
     SearchBar,
     ServiceList,
     ServiceRequest
+  },
+  data() {
+    return {
+      loading: false,
+      error: null
+    };
+  },
+  computed: {
+    // Just saving in global state to reduce
+    // api calls when route changes. Ex: services -> docs -> services.
+    ...mapGetters(["domainsList"])
+  },
+  methods: {
+    ...mapActions(["getDomainsList"]),
+    async fetchData() {
+      this.loading = true;
+      try {
+        await this.getDomainsList();
+        this.loading = false;
+      } catch (e) {
+        this.loading = false;
+        this.error = e.toString();
+      }
+    }
   }
 };
 </script>

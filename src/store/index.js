@@ -8,18 +8,23 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: () => ({
     isAuthenticated: false,
-    userData: null
+    userData: null,
+    searchText: "",
+    domainsList: []
   }),
-  getters: {
-    isAuthenticated: state => state.isAuthenticated,
-    userData: state => state.userData
-  },
+  getters: {},
   mutations: {
     toggleAuthenticated(state) {
       state.isAuthenticated = !state.isAuthenticated;
     },
     setUserData(state, data) {
       state.userData = data;
+    },
+    setSearchText(state, data) {
+      state.searchText = data;
+    },
+    setDomainsList(state, data) {
+      state.domainsList = data;
     }
   },
   actions: {

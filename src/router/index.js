@@ -107,7 +107,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (router.app.$store.getters.isAuthenticated) {
+    if (router.app.$store.state.isAuthenticated) {
       next();
     } else {
       // router.app.$store.dispatch('dialogService', 'You need to login first');

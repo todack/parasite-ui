@@ -64,18 +64,18 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: null,
+      password: null,
       isAskEmail: true,
       mode: "login"
     };
   },
   computed: {
-    ...mapGetters(["isAuthenticated", "userData"])
+    ...mapState(["userData", "isAuthenticated"])
   },
   methods: {
     ...mapActions(["attemptLogin", "attemptSignup"]),
@@ -99,8 +99,7 @@ export default {
       // If isAuthentication doesn't change that means login/signup failed.
       // And the dialog system will show a message.
       this.isAskEmail = true;
-      this.email = "";
-      this.password = "";
+      this.email = this.password = null;
     }
   }
 };
