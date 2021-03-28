@@ -14,30 +14,44 @@
             <v-slide-y-transition hide-on-leave leave-absolute>
               <p v-if="isAuthenticated" class="title mt-9">
                 Welcome!
-                <span class="font-weight-bold headline">{{ email }}</span>
+                <span class="font-weight-bold headline">{{
+                  userData.email
+                }}</span>
               </p>
-              <v-text-field
-                v-else-if="isAskEmail"
-                class="title"
-                @keydown.enter="isAskEmail = !isAskEmail"
-                v-model="email"
-                append-icon="mdi-arrow-right"
-                outlined
-                color="grey darken-3"
-                full-width
-                placeholder="Email Please!"
-              ></v-text-field>
-              <v-text-field
-                v-else-if="!isAskEmail"
-                class="title"
-                @keydown.enter="authHandler"
-                v-model="password"
-                append-icon="mdi-arrow-right"
-                outlined
-                color="grey darken-3"
-                full-width
-                placeholder="And password too :)"
-              ></v-text-field>
+              <div v-else>
+                <v-text-field
+                  v-if="isAskEmail"
+                  class="title"
+                  @keydown.enter="isAskEmail = !isAskEmail"
+                  v-model="email"
+                  hide-details
+                  append-icon="mdi-arrow-right"
+                  outlined
+                  color="grey darken-3"
+                  full-width
+                  placeholder="Email Please!"
+                ></v-text-field>
+                <v-text-field
+                  v-else
+                  class="title"
+                  @keydown.enter="authHandler"
+                  v-model="password"
+                  hide-details
+                  append-icon="mdi-arrow-right"
+                  outlined
+                  color="grey darken-3"
+                  full-width
+                  placeholder="And password too :)"
+                ></v-text-field>
+                <v-chip-group class="mt-3" v-model="mode" mandatory>
+                  <v-chip filter value="login" class="overline" dark>
+                    Login
+                  </v-chip>
+                  <v-chip filter value="signup" class="overline" dark>
+                    Signup
+                  </v-chip>
+                </v-chip-group>
+              </div>
             </v-slide-y-transition>
           </v-col>
         </v-row>
@@ -56,22 +70,33 @@ export default {
     return {
       email: "",
       password: "",
-      isAskEmail: true
+      isAskEmail: true,
+      mode: "login"
     };
   },
   computed: {
-    ...mapGetters(["isAuthenticated"])
+    ...mapGetters(["isAuthenticated", "userData"])
   },
   methods: {
-    ...mapActions(["attemptAuthentication"]),
+    ...mapActions(["attemptLogin", "attemptSignup"]),
     async authHandler() {
-      const res = await this.attemptAuthentication({
-        email: this.email,
-        password: this.password
-      });
+      let res;
+
+      if (this.mode === "login") {
+        res = await this.attemptLogin({
+          email: this.email,
+          password: this.password
+        });
+      } else {
+        res = await this.attemptSignup({
+          email: this.email,
+          password: this.password
+        });
+      }
+
       if (res) return;
 
-      // If isAuthentication doesn't change that means login failed.
+      // If isAuthentication doesn't change that means login/signup failed.
       // And the dialog system will show a message.
       this.isAskEmail = true;
       this.email = "";

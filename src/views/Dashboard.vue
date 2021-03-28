@@ -25,6 +25,15 @@
 
 <script>
 export default {
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (vm.$store.getters.isAuthenticated) return true;
+      else {
+        // vm.$store.dispatch('dialogService', 'Please login first.');
+        return { path: "/landing" };
+      }
+    });
+  },
   data() {
     return {
       items: [

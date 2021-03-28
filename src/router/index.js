@@ -64,12 +64,18 @@ const routes = [
   {
     path: "/result",
     name: "result",
-    component: Result
+    component: Result,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+    meta: {
+      requiresAuth: true
+    },
     children: [
       {
         path: "account-settings",
@@ -97,6 +103,20 @@ const routes = [
 
 const router = new VueRouter({
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (router.app.$store.getters.isAuthenticated) {
+      next();
+    } else {
+      // router.app.$store.dispatch('dialogService', 'You need to login first');
+      next({
+        path: "/",
+        query: { redirect: to.fullpath }
+      });
+    }
+  } else next();
 });
 
 export default router;
