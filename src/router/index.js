@@ -71,7 +71,7 @@ const routes = [
   },
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "dashboard",
     component: Dashboard,
     meta: {
       requiresAuth: true
@@ -110,7 +110,7 @@ router.beforeEach((to, from, next) => {
     if (router.app.$store.state.isAuthenticated) {
       next();
     } else {
-      // router.app.$store.dispatch('dialogService', 'You need to login first');
+      router.app.$store.dispatch("setBannerText", "You need to login first");
       next({
         path: "/",
         query: { redirect: to.fullpath }

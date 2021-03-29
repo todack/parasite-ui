@@ -10,7 +10,8 @@ export default new Vuex.Store({
     isAuthenticated: false,
     userData: null,
     searchText: "",
-    domainsList: []
+    domainsList: [],
+    bannerText: ""
   }),
   getters: {},
   mutations: {
@@ -25,10 +26,23 @@ export default new Vuex.Store({
     },
     setDomainsList(state, data) {
       state.domainsList = data;
+    },
+    setBannerText(state, data) {
+      if (data.length > 0) {
+        state.bannerText = `Something just broke, ${data}.`;
+      } else state.bannerText = data;
     }
   },
   actions: {
     ...userActions,
-    ...servicesActions
+    ...servicesActions,
+    setBannerText({ commit }, data) {
+      commit("setBannerText", data);
+      if (data.length > 0) {
+        setTimeout(() => {
+          commit("setBannerText", "");
+        }, 5000);
+      }
+    }
   }
 });

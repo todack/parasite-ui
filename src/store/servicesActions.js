@@ -1,15 +1,13 @@
 import axios from "axios";
 
 export default {
-  async getDomainsList({ state, commit }) {
+  async getDomainsList({ state, commit, dispatch }) {
     if (state.domainsList.length) return;
-
-    let res = await axios.get("/domain");
-
-    if (res.data.body.error) {
-      throw new Error(res.data.body.error.message);
-    } else {
-      commit("setDomainsList", res.data.body);
+    try {
+      let res = await axios.get("/domain");
+      commit("setDomainsList", res.data);
+    } catch (e) {
+      dispatch("setBannerText", e.response.data.error);
     }
   },
 
