@@ -69,7 +69,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userData"])
+    ...mapState(["userData"]),
+    amount() {
+      return this.apiCalls * 0.1;
+    }
   }
 };
 </script>
