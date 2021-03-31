@@ -37,6 +37,10 @@ export default {
           path: "api-access"
         },
         {
+          title: "Manage Providers",
+          path: "manage-providers"
+        },
+        {
           title: "Billing & Credits",
           path: "billing"
         },

@@ -6,9 +6,10 @@
     <v-row>
       <v-col cols="6">
         <v-text-field
+          dense
           solo
           readonly
-          placeholder="API Access Token"
+          placeholder="API access token"
           :value="userData.accessToken"
         ></v-text-field>
       </v-col>

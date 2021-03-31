@@ -6,6 +6,7 @@
     <v-row justify="space-around">
       <v-col cols="5">
         <v-text-field
+          dense
           v-model="apiCalls"
           solo
           placeholder="No. of API calls"
@@ -13,6 +14,7 @@
       </v-col>
       <v-col cols="5">
         <v-text-field
+          dense
           solo
           :value="amount"
           readonly
@@ -29,10 +31,11 @@
     <v-row>
       <v-col cols="6">
         <v-text-field
+          dense
           solo
           persistent-hint
           messages="Example JJMYYPX256"
-          placeholder="Coupon Code"
+          placeholder="Coupon code"
         >
         </v-text-field>
       </v-col>

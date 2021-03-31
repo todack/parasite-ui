@@ -7,6 +7,7 @@
       <v-row>
         <v-col cols="6">
           <v-text-field
+            dense
             :value="userData.email"
             readonly
             placeholder="User Name"
@@ -16,6 +17,7 @@
         </v-col>
         <v-col cols="6">
           <v-text-field
+            dense
             :value="userData.username"
             placeholder="User Email"
             solo

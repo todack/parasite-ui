@@ -5,10 +5,11 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-text-field solo placeholder="Subject of Issue"> </v-text-field>
+        <v-text-field dense solo placeholder="Subject of Issue"> </v-text-field>
       </v-col>
       <v-col cols="12">
         <v-textarea
+          dense
           solo
           placeholder="Describe the issue in detail..."
         ></v-textarea>

@@ -19,6 +19,7 @@ import AccountSettings from "../components/dashboard/AccountSettings.vue";
 import ApiAccess from "../components/dashboard/ApiAccess.vue";
 import Billing from "../components/dashboard/Billing.vue";
 import Support from "../components/dashboard/Support.vue";
+import Providers from "../components/dashboard/Providers.vue";
 
 Vue.use(VueRouter);
 
@@ -92,6 +93,10 @@ const routes = [
       {
         path: "support",
         component: Support
+      },
+      {
+        path: "manage-providers",
+        component: Providers
       },
       {
         path: "",
