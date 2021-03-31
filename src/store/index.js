@@ -41,7 +41,7 @@ export default new Vuex.Store({
       if (data.length > 0) {
         setTimeout(() => {
           commit("setBannerText", "");
-        }, 5000);
+        }, 10000);
       }
     }
   }

@@ -1,5 +1,4 @@
 <template>
-  <v-container>
     <v-container>
       <v-row>
         <v-subheader> Personal Details </v-subheader>
@@ -26,7 +25,6 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-container>
 </template>
 
 <script>
