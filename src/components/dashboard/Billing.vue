@@ -8,21 +8,22 @@
         <v-text-field
           dense
           v-model="apiCalls"
-          solo
-          placeholder="No. of API calls"
+          outlined
+          label="No. of API calls"
         ></v-text-field>
       </v-col>
       <v-col cols="5">
         <v-text-field
           dense
-          solo
+          outlined
           :value="amount"
           readonly
-          placeholder="Amount"
+          disabled
+          label="Amount"
         ></v-text-field>
       </v-col>
       <v-col cols="2">
-        <v-btn> Proceed </v-btn>
+        <v-btn dark> Proceed </v-btn>
       </v-col>
     </v-row>
     <v-row>
@@ -32,15 +33,15 @@
       <v-col cols="6">
         <v-text-field
           dense
-          solo
+          outlined
           persistent-hint
           messages="Example JJMYYPX256"
-          placeholder="Coupon code"
+          label="Coupon code"
         >
         </v-text-field>
       </v-col>
       <v-col cols="6">
-        <v-btn> Redeem </v-btn>
+        <v-btn dark> Redeem </v-btn>
       </v-col>
     </v-row>
     <v-row>

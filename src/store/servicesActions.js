@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  async getDomainsList({ state, commit, dispatch }) {
+  async fetchDomainsList({ state, commit, dispatch }) {
     if (state.domainsList.length) return;
     try {
       let res = await axios.get("/domain");
@@ -11,10 +11,26 @@ export default {
     }
   },
 
-  transformDomainName(_, data) {
-    return data
-      .split("-")
-      .map(val => val[0] + val.slice(1))
-      .join(" ");
+  async getDomain({ dispatch }, domainId) {
+    try {
+      let res = await axios.get(`/domain/${domainId}`);
+      return res.data;
+    } catch (e) {
+      dispatch("setBannerText", e.response.data.error);
+    }
+  },
+
+  async requestService({ dispatch }, { data, domainId }) {
+    try {
+      let res = await axios.post(`/request/${domainId}`, data, {
+        headers: {
+          authorization: "Bearer letmepass"
+        }
+      });
+      console.log(res);
+      return res.data._id;
+    } catch (e) {
+      dispatch("setBannerText", e.response.data.error);
+    }
   }
 };

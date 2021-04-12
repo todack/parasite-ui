@@ -58,12 +58,12 @@ const routes = [
     ]
   },
   {
-    path: "/request",
+    path: "/request/:domainId",
     name: "request",
     component: Request
   },
   {
-    path: "/result",
+    path: "/result/:requestId",
     name: "result",
     component: Result,
     meta: {

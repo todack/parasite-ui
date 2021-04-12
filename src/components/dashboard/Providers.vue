@@ -7,60 +7,95 @@
       <v-col cols="4">
         <v-select
           dense
-          solo
+          outlined
           :items="domainsList"
+          item-value="_id"
+          item-text="name"
           v-model="domain"
-          placeholder="Select domain"
+          label="Select domain"
         >
         </v-select>
       </v-col>
       <v-col cols="8">
-        <keep-alive>
-          <component v-if="domain" :is="domainComponent"></component>
-        </keep-alive>
+        <v-text-field
+          outlined
+          dense
+          v-model="name"
+          label="Provider's Name"
+        ></v-text-field>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="4">
         <v-select
           dense
-          solo
+          outlined
           :items="formatsList"
           v-model="format"
-          placeholder="Select format"
+          label="Select format"
         >
         </v-select>
       </v-col>
       <v-col cols="8">
-        <!-- github, api -->
-        <keep-alive>
-          <component v-if="format" :is="formatComponent"></component>
-        </keep-alive>
+        <v-text-field
+          v-if="format"
+          outlined
+          dense
+          label="Source URL"
+          v-model="sourceUrl"
+        ></v-text-field>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="4">
         <v-select
           dense
-          solo
+          outlined
           :items="authMethodsList"
           v-model="authMethod"
-          placeholder="Select authorization method"
+          label="Select authorization method"
         ></v-select>
       </v-col>
       <v-col cols="8">
-        <keep-alive>
-          <component v-if="authMethod" :is="authMethodComponent"></component>
-        </keep-alive>
+        <div v-if="authMethod === 'noAuth'">
+          <v-checkbox
+            v-model="noAuthCheck"
+            label="I confirm that the provider is publicly accessible."
+            class="mt-0"
+          ></v-checkbox>
+        </div>
+        <div v-else-if="authMethod === 'basic'">
+          <v-text-field
+            outlined
+            dense
+            label="Username"
+            v-model="basicUsername"
+          ></v-text-field>
+          <v-text-field
+            outlined
+            dense
+            label="Password"
+            v-model="basicPassword"
+          ></v-text-field>
+        </div>
+        <div v-else-if="authMethod === 'token'">
+          <v-text-field
+            outlined
+            dense
+            label="Authorization Token"
+            v-model="authToken"
+          ></v-text-field>
+        </div>
+        <div v-else></div>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
         <v-textarea
           dense
-          solo
+          outlined
           v-model="description"
-          placeholder="Describe how is it different from other providers."
+          label="Description"
         ></v-textarea>
       </v-col>
     </v-row>
@@ -76,7 +111,8 @@
       <v-col cols="12">
         <v-data-table
           :headers="tableHeaders"
-          :items="tableItems"
+          :items="userProviders"
+          :items-per-page="5"
         ></v-data-table>
       </v-col>
     </v-row>
@@ -84,56 +120,51 @@
 </template>
 
 <script>
-import Github from "./providerFormats/Github.vue";
-import Api from "./providerFormats/Api.vue";
-import Dummi from "./domainClassConfigs/Dummi.vue";
-import AccessToken from "./authMethods/AccessToken.vue";
-import BasicAuth from "./authMethods/BasicAuth.vue";
-import NoAuth from "./authMethods/NoAuth.vue";
+import { mapState } from "vuex";
 
 export default {
-  components: {
-    Github,
-    Api,
-    Dummi,
-    AccessToken,
-    BasicAuth,
-    NoAuth
+  async created() {
+    if (this.$store.state.domainsList) {
+      await Promise.all([
+        this.$store.dispatch("fetchDomainsList"),
+        this.$store.dispatch("fetchUserProviders")
+      ]);
+    }
   },
   data() {
     return {
       description: null,
       domain: null,
-      domainsList: [
-        {
-          text: "Dummi",
-          value: "Dummi"
-        }
-      ],
+      sourceUrl: null,
+      basicUsername: null,
+      basicPassword: null,
+      authToken: null,
+      noAuthCheck: false,
       format: null,
+      name: null,
       formatsList: [
         {
           text: "Public API",
-          value: "Api"
+          value: "api"
         },
         {
           text: "Github Hosted",
-          value: "Github"
+          value: "github"
         }
       ],
       authMethod: null,
       authMethodsList: [
         {
           text: "None (Auth not required)",
-          value: "NoAuth"
+          value: "noAuth"
         },
         {
           text: "Basic Authorization",
-          value: "BasicAuth"
+          value: "basic"
         },
         {
           text: "Access Token",
-          value: "AccessToken"
+          value: "token"
         }
       ],
       tableHeaders: [
@@ -142,16 +173,20 @@ export default {
           value: "_id"
         },
         {
-          text: "Domain Name",
-          value: "domainName"
+          text: "Name",
+          value: "name"
         },
+        // {
+        //   text: "Domain Name",
+        //   value: "domainName"
+        // },
         {
           text: "Format",
           value: "format"
         },
         {
           text: "Auth Method",
-          value: "authMethod"
+          value: "auth.kind"
         },
         {
           text: "Hits",
@@ -161,24 +196,52 @@ export default {
           text: "Misses",
           value: "misses"
         }
-      ],
-      tableItems: []
+      ]
     };
   },
   computed: {
-    domainComponent() {
-      return this.domain;
-    },
-    formatComponent() {
-      return this.format;
-    },
-    authMethodComponent() {
-      return this.authMethod;
-    }
+    ...mapState(["domainsList", "userProviders"])
   },
   methods: {
-    submitForReview() {
-      console.log("It's working");
+    async submitForReview() {
+      let data = {
+        authorId: this.$store.state.userData._id,
+        domainId: this.domain,
+        name: this.name,
+        sourceUrl: this.sourceUrl,
+        format: this.format,
+        description: this.description
+      };
+
+      if (this.authMethod === "basic") {
+        data.auth = {
+          kind: "basic",
+          username: this.basicUsername,
+          password: this.basicPassword
+        };
+      } else if (this.authMethod === "token") {
+        data.auth = {
+          kind: "token",
+          token: this.authToken
+        };
+      } else {
+        // no auth
+        data.auth = {
+          kind: "none"
+        };
+      }
+
+      console.log(data);
+      try {
+        await this.$store.dispatch("createProvider", data);
+        this.domain = this.sourceUrl = this.name = null;
+        this.basicUsername = this.basicPassword = null;
+        this.format = this.authMethod = this.description = null;
+        this.inputCheck = this.noAuthCheck = false;
+      } catch (e) {
+        // show them in the respective text field.
+        console.log(e);
+      }
     }
   }
 };

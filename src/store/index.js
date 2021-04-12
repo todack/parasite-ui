@@ -11,7 +11,8 @@ export default new Vuex.Store({
     userData: null,
     searchText: "",
     domainsList: [],
-    bannerText: ""
+    bannerText: "",
+    userProviders: []
   }),
   getters: {},
   mutations: {
@@ -19,7 +20,7 @@ export default new Vuex.Store({
       state.isAuthenticated = !state.isAuthenticated;
     },
     setUserData(state, data) {
-      state.userData = data;
+      state.userData = { ...state.userData, ...data };
     },
     setSearchText(state, data) {
       state.searchText = data;
@@ -31,6 +32,10 @@ export default new Vuex.Store({
       if (data.length > 0) {
         state.bannerText = `Something just broke, ${data}.`;
       } else state.bannerText = data;
+    },
+    setUserProviders(state, data) {
+      if (Array.isArray(data)) state.userProviders = data;
+      else state.userProviders.unshift(data);
     }
   },
   actions: {

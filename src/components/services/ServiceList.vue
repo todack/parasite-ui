@@ -2,19 +2,12 @@
   <v-container class="mt-10">
     <div v-for="(groupList, groupName) in groupedDomainsList" :key="groupName">
       <v-row>
-        <v-subheader class="headline">
-          {{
-            groupName
-              .split("-")
-              .map(val => val[0].toUpperCase() + val.slice(1))
-              .join(" ")
-          }}
-        </v-subheader>
+        <v-subheader class="headline"> {{ groupName }} </v-subheader>
       </v-row>
       <v-row class="mb-5"><v-divider></v-divider></v-row>
       <v-row justify="start" align="center" class="mb-10">
         <v-col cols="3" v-for="domain in groupList" :key="domain.name">
-          <v-card dark to="/request">
+          <v-card dark :to="'/request/' + domain._id">
             <v-card-title class="overline"> {{ domain.name }} </v-card-title>
             <v-card-text style="overflow-y:hidden; height: 10vh">
               {{ domain.shortDesc }}

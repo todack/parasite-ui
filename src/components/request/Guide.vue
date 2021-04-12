@@ -1,5 +1,5 @@
 <template>
-  <v-container class="my-5">
+  <v-container>
     <v-row>
       <v-col cols="12">
         <v-subheader class="overline white--text"> Description </v-subheader>
@@ -7,7 +7,7 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <p class="white--text body-1">{{ serviceDetails.fullDesc }}</p>
+        <p class="white--text body-1">{{ serviceDetails.longDesc }}</p>
       </v-col>
     </v-row>
     <v-row>
@@ -52,18 +52,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      serviceDetails: {
-        fullDesc: "Some stuff about the service.",
-        specList: [
-          {
-            name: "Domain",
-            value: "Image Classification"
-          }
-        ]
-      }
-    };
-  }
+  props: ["serviceDetails"]
 };
 </script>

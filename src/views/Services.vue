@@ -42,15 +42,15 @@ export default {
     ...mapGetters(["domainsList"])
   },
   methods: {
-    ...mapActions(["getDomainsList"]),
+    ...mapActions(["fetchDomainsList"]),
     async fetchData() {
       this.loading = true;
       try {
-        await this.getDomainsList();
-        this.loading = false;
+        await this.fetchDomainsList();
       } catch (e) {
-        this.loading = false;
         this.error = e.toString();
+      } finally {
+        this.loading = false;
       }
     }
   }
